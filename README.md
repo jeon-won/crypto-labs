@@ -10,7 +10,7 @@
 ```python
 FLASK_PORT=8000
 
-DISCORD_WEBHOOK_URL="https://discord.com/api/hooks/dIsC0RdHo0KuRl
+DISCORD_WEBHOOK_URL="https://discord.com/api/hooks/dIsC0RdHo0KuRl"
 TELEGRAM_TOKEN="1234567890:tElEgRaMtOkEn"
 TELEGRAM_CHAT_ID="2345678901"
 

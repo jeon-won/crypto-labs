@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from logging.handlers import RotatingFileHandler
 import logging
-import os;
+import os
 
 # ----- 상수 및 변수 -----
 
