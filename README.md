@@ -9,22 +9,30 @@
 
 ```python
 FLASK_PORT=8000
+
 DISCORD_WEBHOOK_URL="https://discord.com/api/hooks/dIsC0RdHo0KuRl
+TELEGRAM_TOKEN="1234567890:tElEgRaMtOkEn"
+TELEGRAM_CHAT_ID="2345678901"
 
 OKX_API_KEY="oKxApIkEy"
 OKX_API_SECRET_KEY="oKxApIsEcReTkEy"
 OKX_API_PASSPHRASE="oKxApIpAsSpHrAsE"
-
 ```
 
 
-## discord
+## messenger
 
 ### discord.py
 
-디스코드 메시지를 보내는 모듈. 환경변수에 디스코드 채팅 채널 웹훅 주소를 등록해야 합니다.
+디스코드 메시지를 보내는 모듈.
 
 * `send_discord_message()`: 웹훅을 사용하여 디스코드 채팅 채널에 메시지 전송
+
+### telegram_module.py
+
+텔레그램 메시지를 보내는 모듈.
+
+* `send_telegram_message()`: 텔레그램 메시지 전송
 
 
 ## okx

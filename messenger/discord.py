@@ -1,10 +1,10 @@
+# from dotenv import load_dotenv
+# import os
 import json
-import os
 import requests
-from dotenv import load_dotenv
 
-load_dotenv()
-DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
+# load_dotenv()
+# DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
 
 def send_discord_message(webhook_url, message):
     """디스코드 웹훅을 사용하여 메시지를 보냅니다.
@@ -29,3 +29,5 @@ def send_discord_message(webhook_url, message):
         print('Message successfully sent to Discord channel.')
     else:
         print(f'Failed to send message to Discord channel. Status code: {response.status_code}')
+
+# send_discord_message(DISCORD_WEBHOOK_URL, "Message")
