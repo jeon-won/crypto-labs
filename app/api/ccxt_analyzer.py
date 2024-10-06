@@ -16,7 +16,7 @@ def get_avg_candle_size(ohlcv):
         sum_candle_size += candle_size
     
     # 캔들 사이즈의 평균 값 반환
-    avg_candle_size = sum_candle_size / number_of_candles
+    avg_candle_size = round(sum_candle_size / number_of_candles, 3)
     return avg_candle_size
 
 
@@ -36,7 +36,7 @@ def get_avg_volume(ohlcv):
         sum_volume += item[5]
     
     # 거래량 평균 반환
-    avg_volume = sum_volume / number_of_candles
+    avg_volume = int(round(sum_volume / number_of_candles, 0))
     return avg_volume
 
 
@@ -53,7 +53,6 @@ def is_three_tick(ohlcv, std_size):
     # 각 캔들을 분석하여 틱 생성 확인
     for item in ohlcv:
         candle_size = abs(((item[4] - item[1]) / item[1]) * 100)
-        print(candle_size)
         if(candle_size >= std_size):
             count_tick += 1
     

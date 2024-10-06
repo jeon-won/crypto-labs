@@ -21,12 +21,13 @@ OKX_API_SECRET_KEY="oKxApIsEcReTkEy"
 OKX_API_PASSPHRASE="oKxApIpAsSpHrAsE"
 ```
 
+## app
 
-## api
+* `scan_timing.py`: 코딩 중.
 
-### ccxt_analyzer.py
+### api
 
-OHLCV(open, high, low, close, volume) 데이터를 분석하는 모듈. OHLCV 데이터는 ccxt 라이브러리의 `fetch_ohlcv()` 함수가 반환합니다.
+`ccxt_analyzer.py`는 OHLCV(open, high, low, close, volume) 데이터를 분석하는 모듈. OHLCV 데이터는 ccxt 라이브러리의 `fetch_ohlcv()` 함수가 반환합니다.
 
 * `get_avg_candle_size()`: 평균 캔들 크기 계산
 * `get_avg_volume()`: 평균 거래량 계산
@@ -35,15 +36,11 @@ OHLCV(open, high, low, close, volume) 데이터를 분석하는 모듈. OHLCV �
 * `is_big_candle_size()`: 겁나 큰 캔들인지 확인
 * `is_big_volume()`: 거래량 터졌는지 확인
 
-### common.py
-
-공통 기능을 모아놓을 예정인(?) 모듈
+`common.py`는 공통 기능을 모아놓을 예정인(?) 모듈.
 
 * `convert_unixtime_to_datetime()`: Unixtime(10자리 또는 13자리 숫자)을 'yyyy-mm-dd hh:mm:ss' 문자열로 변환
 
-### messenger.py
-
-메시지 보내는 모듈
+`messenger.py`는 메시지를 보내는 모듈.
 
 * `send_telegram_message()`: 텔레그램 메시지 전송
 * `send_discord_message()`: 디스코드 웹훅 메시지 전송
