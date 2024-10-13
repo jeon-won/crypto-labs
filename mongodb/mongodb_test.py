@@ -4,11 +4,11 @@ from pprint import pprint
 from datetime import datetime
 
 # 상수
-MONGO_ID = "admin"
-MONGO_PASSWORD = "password"
-MONGO_IP = "localhost"
-MONGO_PORT = "27017"
-MONGO_DB = "ohlcv"
+MONGO_ID = "admin"          ## MongoDB 접속 ID
+MONGO_PASSWORD = "password" ## MongoDB 접속 비밀번호
+MONGO_IP = "localhost"      ## MongoDB 접속 주소
+MONGO_PORT = "27017"        ## MongoDB 포트
+MONGO_DB = "ohlcv"          ## MongoDB 이름
 
 # 초기화
 binance = ccxt.binance()

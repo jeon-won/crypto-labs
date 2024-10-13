@@ -27,7 +27,7 @@ OKX_API_PASSPHRASE="oKxApIpAsSpHrAsE"
 
 ### api
 
-`ccxt_analyzer.py`는 OHLCV(open, high, low, close, volume) 데이터를 분석하는 모듈. OHLCV 데이터는 ccxt 라이브러리의 `fetch_ohlcv()` 함수가 반환합니다.
+`ohlcv_analyzer.py`는 OHLCV(open, high, low, close, volume) 데이터를 분석하는 모듈. OHLCV 데이터는 ccxt 라이브러리의 `fetch_ohlcv()` 함수가 반환합니다.
 
 * `get_avg_candle_size()`: 평균 캔들 크기 계산
 * `get_avg_volume()`: 평균 거래량 계산

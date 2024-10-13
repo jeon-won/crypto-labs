@@ -1,3 +1,7 @@
+"""ohlcv_analyzer.py
+ccxt의 fetch_ohlcv() 함수가 반환하는 배열 데이터를 지지고 볶는(?) 모듈입니다.
+"""
+
 def get_avg_candle_size(ohlcv):
     """평균 캔들 크기를 계산합니다.
 

@@ -1,5 +1,19 @@
-a = 0.044332158128497154
-b = 123.456
+import ccxt
+from pprint import pprint
+import time
 
-print(round(a, 3))
-print(int(round(b, 0)))
+timeframe = ["5m", "15m", "30m", "1h"]
+dic = {
+  '5m': 1,
+  '15m': 2,
+  '30m': 3,
+  '1h': 4
+}
+
+for tf in timeframe:
+  print(dic[tf])
+
+
+
+# binance = ccxt.binance()
+# binance.fetch_ohlcv("BTC/USDT", "5m", limit=5)
