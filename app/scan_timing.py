@@ -36,6 +36,7 @@ for tf in TIMEFRAME:  ## 평균 캔들, 거래량 딕셔너리에 키 생성
 # 데이터 가공
 ## ohlcv 데이터 가져오기
 ohlcv = {}
+count = 0
 for tf in TIMEFRAME:
     ohlcv[tf] = binance.fetch_ohlcv(SYMBOL, tf, limit=LIMIT)
     avg_candle[tf] = ohlcv_analyzer.get_avg_candle_size(ohlcv[tf])
@@ -43,13 +44,16 @@ for tf in TIMEFRAME:
     
     if(ohlcv_analyzer.is_three_tick(ohlcv[tf][-5:], avg_candle[tf])):
        candle_info["is_three_tick"] = tf
-    if(ohlcv_analyzer.is_tail_candles(ohlcv[tf][-3:], 1, 2)):
+       count += 1
+    if(ohlcv_analyzer.is_tail_candles(ohlcv[tf][-2:], 1.1, 2)):
        candle_info["is_tail_candles"] = tf
+       count += 1
     if(ohlcv_analyzer.is_big_candle_size(ohlcv[tf][-1], avg_candle[tf], 30)):
        candle_info["is_big_candle_size"] = tf
+       count += 1
     if(ohlcv_analyzer.is_big_volume(ohlcv[tf][-1], avg_vol[tf], 3)):
        candle_info["is_big_volume"] = tf
+       count += 1
 
-pprint(avg_candle)
-pprint(avg_vol)
 pprint(candle_info)
+pprint(count)
