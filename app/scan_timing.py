@@ -17,7 +17,7 @@ def check_timeframes(dictionary):
     return '15m' in all_values and bool(all_values & required_values)
 
 # 상수 --------------------------------------------------
-DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
+# DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
 SYMBOL = "BTC/USDT"
 LIMIT = 100
 TIMEFRAME = ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "12h", "1d"]
@@ -48,9 +48,9 @@ for tf in TIMEFRAME:
     
     if(ohlcv_analyzer.is_three_tick(ohlcv[tf][-3:], avg_candle[tf])):
        candle_info["is_three_tick"].append(tf)
-    if(ohlcv_analyzer.is_tail_candles(ohlcv[tf][-3:], 1.1, 2)):
+    if(ohlcv_analyzer.is_tail_candles(ohlcv[tf][-2:], 1.1, 2)):
        candle_info["is_tail_candles"].append(tf)
-    if(ohlcv_analyzer.is_big_candle_size(ohlcv[tf][-1], avg_candle[tf], 30)):
+    if(ohlcv_analyzer.is_big_candle_size(ohlcv[tf][-1], avg_candle[tf], 3)):
        candle_info["is_big_candle_size"].append(tf)
     if(ohlcv_analyzer.is_big_volume(ohlcv[tf][-1], avg_vol[tf], 3)):
        candle_info["is_big_volume"].append(tf)
@@ -58,6 +58,6 @@ for tf in TIMEFRAME:
 pprint(candle_info)
 print(check_timeframes(candle_info))
 
-is_timimg = check_timeframes(candle_info)
-if(is_timimg):
-    send_discord_message(DISCORD_WEBHOOK_URL, str(json.dumps(candle_info, indent=4)))
+# is_timimg = check_timeframes(candle_info)
+# if(is_timimg):
+#     send_discord_message(DISCORD_WEBHOOK_URL, str(json.dumps(candle_info, indent=4)))
