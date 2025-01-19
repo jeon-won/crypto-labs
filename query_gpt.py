@@ -82,8 +82,7 @@ OHLCV 데이터를 참고하여 비트코인 포지션을 잡아도 되는지 �
 is_timing = (current_vol_15m >= avg_vol_15 * MULTIPLIER) or \
     (current_candle_size_15m >= avg_candle_size_15m * MULTIPLIER) or \
     (current_rsi_15m <= 30 or current_rsi_15m >= 70)
-
-if(True):
+if(is_timing):
     response = openai.chat.completions.create(
         model=MODEL_NAME,  # 사용할 모델
         messages=[
