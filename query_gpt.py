@@ -11,7 +11,7 @@ DISCORD_WEBHOOK_URL = os.environ.get('DISCORD_WEBHOOK_URL')
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 MODEL_NAME = "o1-mini"  ## gpt-4o, gpt-4o-mini, o1-mini 등
 SYMBOL = 'BTC/USDT'
-LIMIT = 200             ## 가져올 캔들 개수
+LIMIT = 150             ## 가져올 캔들 개수
 MULTIPLIER = 3          ## 거래량, 캔들크기가 평균 대비 몇 배 이상일 떄 OpenAI에 질의할 것인지?
 
 # 비트코인 두 캔들의 ohlcv 값 가져오기
@@ -20,14 +20,18 @@ binance = ccxt.binance(config={
         'defaultType': 'future'
     }
 })
+
 ohlcv_15m = binance.fetch_ohlcv(SYMBOL, '15m', limit=LIMIT)
+current_price = ohlcv_15m[-1][4]
+transformed_ohlcv_15m = []
 
 # 입력 토큰 절약을 위해 Unixtime 자릿수 절감 및 그 외 데이터 반올림
-transformed_ohlcv_15m = []
 for row in ohlcv_15m:
     timestamp = row[0] // 1000                         ## 첫 번째 요소는 뒤 0 3개를 제거
     values = [round(value) for value in row[1:]]       ## 나머지 요소는 소수값을 반올림하여 자연수로 변경
     transformed_ohlcv_15m.append([timestamp] + values) ## 변환된 데이터를 새로운 리스트에 추가
+
+print(f"현재가: {current_price}")
 
 # 여러 데이터 저장
 ## 현재 거래량, 캔들크기 및 RSI 값 저장
@@ -41,6 +45,7 @@ avg_candle_size_15m = oa.get_avg_candle_size(ohlcv_15m)
 prompt = f"""당신은 비트코인이 상승 또는 하락 추세로 전환하기 직전에 포지션을 잡아 수익을 내야 합니다. 예를 들어 하락에서 상승으로 전환하기 직전에 롱 포지션을, 상승에서 하락으로 전환하기 직전에 숏 포지션을 잡은 후 1시간 내로 포지션을 정리하여 수익을 내야 합니다.
 
 OHLCV 데이터를 참고하여 비트코인 포지션을 잡아도 되는지 판단해주세요. 비트코인 데이터는 다음과 같습니다.
+* 현재 가격: 
 * 현재 RSI: {current_rsi_15m}
 * OHLCV 데이터: {transformed_ohlcv_15m}
   - OHLCV 데이터 각 배열의 0번째 요소는 Unixtime, 1번째 요소는 시가, 2번째 요소는 고가, 3번째 요소는 저가, 4번째 요소는 종가, 5번째 요소는 거래량임
@@ -82,7 +87,7 @@ OHLCV 데이터를 참고하여 비트코인 포지션을 잡아도 되는지 �
 is_timing = (current_vol_15m >= avg_vol_15 * MULTIPLIER) or \
     (current_candle_size_15m >= avg_candle_size_15m * MULTIPLIER) or \
     (current_rsi_15m <= 30 or current_rsi_15m >= 70)
-if(is_timing):
+if(True):
     response = openai.chat.completions.create(
         model=MODEL_NAME,  # 사용할 모델
         messages=[
