@@ -1,8 +1,10 @@
 import api.ohlcv_analyzer as oa
+from api.common import save_time, load_time
 import ccxt
 import os
 import openai
 from api.messenger import send_discord_message
+from datetime import datetime
 from dotenv import load_dotenv
 
 # 상수
@@ -31,7 +33,7 @@ for row in ohlcv_15m:
     values = [round(value) for value in row[1:]]       ## 나머지 요소는 소수값을 반올림하여 자연수로 변경
     transformed_ohlcv_15m.append([timestamp] + values) ## 변환된 데이터를 새로운 리스트에 추가
 
-print(f"현재가: {current_price}")
+print(transformed_ohlcv_15m)
 
 # 여러 데이터 저장
 ## 현재 거래량, 캔들크기 및 RSI 값 저장
@@ -87,7 +89,7 @@ OHLCV 데이터를 참고하여 비트코인 포지션을 잡아도 되는지 �
 is_timing = (current_vol_15m >= avg_vol_15 * MULTIPLIER) or \
     (current_candle_size_15m >= avg_candle_size_15m * MULTIPLIER) or \
     (current_rsi_15m <= 30 or current_rsi_15m >= 70)
-if(True):
+if(False):
     response = openai.chat.completions.create(
         model=MODEL_NAME,  # 사용할 모델
         messages=[
