@@ -1,6 +1,4 @@
-# o3-mini API 사용하려면 Tier 3 이상 되어야 함... 😭
-# (100달러 결제 후 7일 경과 시 Tier 3 되는 듯)
-
+# o3-mini API 사용하려고 Tier 3가 됐는데 'The model `o3-mini` does not exist or you do not have access to it.' 오류가 발생함... 😭
 from openai import OpenAI
 import os
 
