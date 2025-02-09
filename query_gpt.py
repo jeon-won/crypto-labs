@@ -1,4 +1,4 @@
-import api.ohlcv_analyzer as oa
+import api.ohlcv_analyzer_v1 as oa
 from api.common import save_time, load_time
 import ccxt
 import os
