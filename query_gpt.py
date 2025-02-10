@@ -41,14 +41,12 @@ current_rsi_15m = oa.calculate_rsi(ohlcv_15m)
 avg_vol_15 = oa.get_avg_volume(ohlcv_15m)
 avg_candle_size_15m = oa.get_avg_candle_size(ohlcv_15m)
 
-prompt = f"""You are a Bitcoin Day trading investor. The data below is a processing of the OHLCV data of Bitcoin returned by python ccxt's fetch_ohlcv() function. The first element of each array is the index (the higher the value, the latest candlestick), followed by the market price, high price, low price, closing price, and trading volume.
+prompt = f"""
+# Role
+You are a bitcoin day trading investor who makes a profit from reverse trend trading.
 
-{transformed_ohlcv_15m}
-
-the current RSI value is {current_rsi_15m}.
-
+# Things to do
 Please analyze the the current Bitcoin chart candlestick pattern if it fits the patterns below.
-
 - When the current trading volume is significantly higher (5 times or more) than the previous candlesticks and the candle length is very long or very short
 - Currently candlestick reaches support or resistance line (Inference is required for support or resistance line)
 - Currently bullish divergence or bearish divergence occured
@@ -57,11 +55,16 @@ Please analyze the the current Bitcoin chart candlestick pattern if it fits the 
 - Currently Three Black Crows or Three White Soldiers occured
 - If you know any other bitcoin chart candlestick patterns, please let me know
 
-Based on the analysis above, please let me know if I can buy bitcoin now. Please tell us the answer in the JSON format below and Korean only.
+# Data
+The data below is a processing of the OHLCV data of Bitcoin returned by python ccxt's fetch_ohlcv() function. The first element of each array is the index (the higher the value, the latest candlestick), followed by the market price, high price, low price, closing price, and trading volume.
+* the current RSI value: {current_rsi_15m}.
+* OHLCV data: {transformed_ohlcv_15m}
+
+# Answer
+Based on the analysis above, please let me know if I can buy bitcoin now. Please tell us the answer in the JSON format below.
 {{
   "time": "{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}",
-  "recommended_position": "(Long, Short or Wait)",
-  "pattern_analysis_result": "(Analysis results of the the current Bitcoin chart candlestick pattern)",
+  "pattern_analysis_result": "(Analysis results of the the current Bitcoin chart candlestick pattern. Please translate this part into Korean.)",
   "support_line": "(support line price)",
   "resistance_line": "(resistance line price)"
 }}
@@ -71,7 +74,7 @@ Based on the analysis above, please let me know if I can buy bitcoin now. Please
 is_timing = (current_vol_15m >= avg_vol_15 * MULTIPLIER) or \
     (current_candle_size_15m >= avg_candle_size_15m * MULTIPLIER) or \
     (current_rsi_15m <= 30 or current_rsi_15m >= 70)
-if(is_timing):
+if(True):
     response = openai.chat.completions.create(
         model=MODEL_NAME,  # 사용할 모델
         messages=[
