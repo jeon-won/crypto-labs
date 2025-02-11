@@ -1,6 +1,6 @@
 import pandas as pd
 
-"""ohlcv_analyzer.py
+"""ohlcv_analyzer_v1.py
 ccxt의 fetch_ohlcv() 함수가 반환하는 배열 데이터를 지지고 볶는(?) 모듈입니다.
 """
 

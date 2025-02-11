@@ -16,13 +16,11 @@ SYMBOL = 'BTC/USDT'
 LIMIT = 200             ## 가져올 캔들 개수
 MULTIPLIER = 3          ## 거래량, 캔들크기가 평균 대비 몇 배 이상일 떄 OpenAI에 질의할 것인지?
 
-# 비트코인 두 캔들의 ohlcv 값 가져오기
 binance = ccxt.binance(config={
     'options': {
         'defaultType': 'future'
     }
 })
-
 ohlcv_15m = binance.fetch_ohlcv(SYMBOL, '15m', limit=LIMIT)
 current_price = ohlcv_15m[-1][4]
 transformed_ohlcv_15m = []
@@ -43,7 +41,7 @@ avg_candle_size_15m = oa.get_avg_candle_size(ohlcv_15m)
 
 prompt = f"""
 # Role
-You are a bitcoin day trading investor who makes a profit from reverse trend trading.
+You are a bitcoin day trading expert who makes a profit from reverse trend trading.
 
 # Things to do
 Please analyze the the current Bitcoin chart candlestick pattern if it fits the patterns below.
@@ -64,7 +62,8 @@ The data below is a processing of the OHLCV data of Bitcoin returned by python c
 Based on the analysis above, please let me know if I can buy bitcoin now. Please tell us the answer in the JSON format below.
 {{
   "time": "{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}",
-  "pattern_analysis_result": "(Analysis results of the the current Bitcoin chart candlestick pattern. Please translate this part into Korean.)",
+  "recommended_position": "(Choose from Long, Short or No position)", 
+  "analysis_result": "(Analysis results of the the current Bitcoin chart candlestick pattern. Please translate this part into Korean.)",
   "support_line": "(support line price)",
   "resistance_line": "(resistance line price)"
 }}

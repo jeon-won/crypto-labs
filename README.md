@@ -24,18 +24,28 @@ OPENAI_API_KEY="oPeNaPiKeY"
 
 ## 디렉터리 구조
 
+### 최상위 경로
+
+`query-gpt.py`는 OpenAI API를 사용하여 차트 분석을 맡기는 코드.
+
+`o3-mini.py`는 OpenAI o3-mini API를 사용하여 질의하는 테스트 코드. Tier 3 됐는데도 작동이 안 됨... 😭
+
 ### api
 
 `common.py`는 공통 기능을 모아놓을 예정인(?) 모듈.
 
   * `convert_unixtime_to_datetime()`: Unixtime(10자리 또는 13자리 숫자)을 'yyyy-mm-dd hh:mm:ss' 문자열로 변환
+  * `save_time()`: yyyy-mm-dd hh:mm:ss' 문자열 형식의 현재 시간을 txt 파일로 저장
+  * `load_time()`: txt 파일에 저장된 'yyyy-mm-dd hh:mm:ss' 문자열 형식의 시간을 불러옴
+
+`divergence.py`는 o3-mini-high를 사용하여 만들어 본 코드. 테스트 안 해봄...
 
 `messenger.py`는 메시지를 보내는 모듈.
 
   * `send_telegram_message()`: 텔레그램 메시지 전송
   * `send_discord_message()`: 디스코드 웹훅 메시지 전송
 
-`ohlcv_analyzer.py`는 OHLCV(open, high, low, close, volume) 데이터를 분석하는 모듈. OHLCV 데이터는 ccxt 라이브러리의 `fetch_ohlcv()` 함수가 반환합니다.
+`ohlcv_analyzer_v1.py`는 OHLCV(open, high, low, close, volume) 데이터를 분석하는 모듈. OHLCV 데이터는 ccxt 라이브러리의 `fetch_ohlcv()` 함수가 반환합니다.
 
   * `get_avg_candle_size()`: 평균 캔들 크기 계산
   * `get_avg_volume()`: 평균 거래량 계산
