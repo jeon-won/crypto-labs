@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 DISCORD_WEBHOOK_URL = os.environ.get('DISCORD_WEBHOOK_URL')
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
-MODEL_NAME = "o1-mini"  ## gpt-4o, gpt-4o-mini, o1-mini 등
+MODEL_NAME = "o3-mini"  ## gpt-4o, gpt-4o-mini, o1-mini 등
 SYMBOL = 'BTC/USDT'
 LIMIT = 200             ## 가져올 캔들 개수
 MULTIPLIER = 3          ## 거래량, 캔들크기가 평균 대비 몇 배 이상일 떄 OpenAI에 질의할 것인지?
@@ -40,9 +40,6 @@ avg_vol_15 = oa.get_avg_volume(ohlcv_15m)
 avg_candle_size_15m = oa.get_avg_candle_size(ohlcv_15m)
 
 prompt = f"""
-# Role
-You are a bitcoin day trading expert who makes a profit from reverse trend trading.
-
 # Things to do
 Please analyze the the current Bitcoin chart candlestick pattern if it fits the patterns below.
 - When the current trading volume is significantly higher (5 times or more) than the previous candlesticks and the candle length is very long or very short
@@ -77,11 +74,12 @@ if(is_timing):
     response = openai.chat.completions.create(
         model=MODEL_NAME,  # 사용할 모델
         messages=[
-            # {"role": "system", "content": "You are a Bitcoin Day trading investor."},  # 시스템 메시지. o1-mini에선 사용 안 함.
+            {"role": "system", "content": "You are a bitcoin day trading expert who makes a profit from reverse trend trading."},  # 시스템 메시지. o1-mini에선 사용 안 함.
             {"role": "user", "content": prompt},  # 사용자 입력
         ],
-        # max_tokens=150,  # 최대 토큰 수
-        # temperature=0,  # 응답의 창의성 정도. o1-mini는 1만 사용 가능.
+        reasoning_effort="medium" # o3-mini 모델에서만 사용하는 옵션: "low", "medium", "high"
+        # max_tokens=150,       # 최대 토큰 수
+        # temperature=0,        # 응답의 창의성 정도. o1-mini는 1만 사용 가능.
     )
     # 응답 출력
     print(response.choices[0].message.content)
