@@ -1,4 +1,4 @@
-from api.common import save_time, load_time
+from api.common import save_current_time, load_time
 from api.messenger import send_discord_message
 from datetime import datetime
 from dotenv import load_dotenv
@@ -69,8 +69,15 @@ Based on the analysis above, please let me know if I can buy bitcoin now. Please
 }}
 """
 
+# 현재시간과 이전 질의시간 차이 계산(59분 미만이면 질의하지 않음)
+time_current = datetime.now()
+time_previous = load_time("time.txt")
+time_diff = time_current - time_previous
+time_diff_minutes = time_diff.total_seconds() / 60
+
 # OpenAI에 질의할 타이밍이면 질의
-is_timing = (current_vol_15m >= avg_vol_15 * MULTIPLIER) or \
+is_timing = (time_diff_minutes >= 59) and \
+    (current_vol_15m >= avg_vol_15 * MULTIPLIER) or \
     (current_candle_size_15m >= avg_candle_size_15m * MULTIPLIER) or \
     (current_rsi_15m <= 30 or current_rsi_15m >= 70)
 if(is_timing):
@@ -84,7 +91,11 @@ if(is_timing):
         # max_tokens=150, # 최대 토큰 수. o3-mini 모델은 지원 안 함.
         # temperature=0,  # 응답의 창의성 정도. o1-mini는 1만 사용 가능.
     )
+
+    # 질의 시간 기록
+    save_current_time("time.txt")
     
     # 응답 출력
     print(response.choices[0].message.content)
     send_discord_message(DISCORD_WEBHOOK_URL, response.choices[0].message.content)
+

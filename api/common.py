@@ -14,7 +14,7 @@ def convert_unixtime_to_datetime(unixtime):
     dt = datetime.fromtimestamp(unixtime)
     return dt.strftime('%Y-%m-%d %H:%M:%S')
 
-def save_time(file_name):
+def save_current_time(file_name):
     """'yyyy-mm-dd hh:mm:ss' 문자열 형식의 현재 시간을 txt 파일로 저장합니다. 
 
     :param file_name: 저장할 파일 이름
