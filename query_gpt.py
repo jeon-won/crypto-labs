@@ -64,8 +64,8 @@ Based on the analysis above, please let me know if I can buy bitcoin now. Please
   "time": "{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}",
   "recommended_position": "(Choose from Long, Short or No position)", 
   "analysis_result": "(Analysis results of the the current Bitcoin chart candlestick pattern. Please answer in short answer format and translate this part into Korean.)",
-  "support_line": "(support line price)",
-  "resistance_line": "(resistance line price)"
+  "support_line": "(support line price. No more than 3)",
+  "resistance_line": "(resistance line price. No more than 3)"
 }}
 """
 
