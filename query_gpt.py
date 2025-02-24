@@ -74,12 +74,14 @@ time_current = datetime.now()
 time_previous = load_time("time.txt")
 time_diff = time_current - time_previous
 time_diff_minutes = time_diff.total_seconds() / 60
+print(time_diff_minutes)
 
 # OpenAI에 질의할 타이밍이면 질의
 is_timing = (time_diff_minutes >= 59) and \
-    (current_vol_15m >= avg_vol_15 * MULTIPLIER) or \
+    ((current_vol_15m >= avg_vol_15 * MULTIPLIER) or \
     (current_candle_size_15m >= avg_candle_size_15m * MULTIPLIER) or \
-    (current_rsi_15m <= 30 or current_rsi_15m >= 70)
+    (current_rsi_15m <= 30 or current_rsi_15m >= 70))
+
 if(is_timing):
     response = openai.chat.completions.create(
         model=MODEL_NAME,  # 사용할 모델
@@ -98,4 +100,3 @@ if(is_timing):
     # 응답 출력
     print(response.choices[0].message.content)
     send_discord_message(DISCORD_WEBHOOK_URL, response.choices[0].message.content)
-
