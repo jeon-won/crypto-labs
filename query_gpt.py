@@ -44,7 +44,7 @@ avg_candle_size_15m = oa.get_avg_candle_size(ohlcv)
 
 prompt = f"""
 # Things to do
-Please analyze the the current Bitcoin chart candlestick pattern if it fits the patterns below.
+Please analyze the the current Bitcoin chart candlestick pattern if it fits the patterns below. Assume that if the pattern below fits more than two, there is a high probability of making a profit.
 - When the current trading volume is significantly higher (5 times or more) than the previous candlesticks and the candle length is very long or very short
 - Currently candlestick reaches support or resistance line (Inference is required for support or resistance line)
 - Currently bullish divergence or bearish divergence occured
@@ -93,10 +93,8 @@ if(is_timing):
         # max_tokens=150, # 최대 토큰 수. o3-mini 모델은 지원 안 함.
         # temperature=0,  # 응답의 창의성 정도. o1-mini는 1만 사용 가능.
     )
-
     # 질의 시간 기록
     save_current_time("time.txt")
-    
     # 응답 출력
     print(response.choices[0].message.content)
     send_discord_message(DISCORD_WEBHOOK_URL, response.choices[0].message.content)
