@@ -74,7 +74,6 @@ time_current = datetime.now()
 time_previous = load_time("time.txt")
 time_diff = time_current - time_previous
 time_diff_minutes = time_diff.total_seconds() / 60
-print(time_diff_minutes)
 
 # OpenAI에 질의할 타이밍이면 질의
 is_timing = (time_diff_minutes >= 59) and \
