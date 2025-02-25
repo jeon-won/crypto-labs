@@ -70,8 +70,10 @@ Based on the analysis above, please let me know if I can buy bitcoin now. Please
 """
 
 # 현재시간과 이전 질의시간 차이 계산(59분 미만이면 질의하지 않음)
+script_dir = os.path.dirname(os.path.abspath(__file__))
+time_file_path = os.path.join(script_dir, "time.txt")
+time_previous = load_time(time_file_path)
 time_current = datetime.now()
-time_previous = load_time("time.txt")
 time_diff = time_current - time_previous
 time_diff_minutes = time_diff.total_seconds() / 60
 
