@@ -95,7 +95,7 @@ if(is_timing):
         # temperature=0,  # 응답의 창의성 정도. o1-mini는 1만 사용 가능.
     )
     # 질의 시간 기록
-    save_current_time("time.txt")
+    save_current_time(time_file_path)
     # 응답 출력
     print(response.choices[0].message.content)
     send_discord_message(DISCORD_WEBHOOK_URL, response.choices[0].message.content)
