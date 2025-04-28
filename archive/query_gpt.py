@@ -14,7 +14,7 @@ import ccxt, openai, os
 load_dotenv()
 DISCORD_WEBHOOK_URL = os.environ.get('DISCORD_WEBHOOK_URL')
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
-MODEL_NAME = "o3-mini"  ## gpt-4o, gpt-4o-mini, o1-mini 등
+MODEL_NAME = "o4-mini"  ## gpt-4o, gpt-4o-mini, o1-mini 등
 SYMBOL = 'BTC/USDT'
 LIMIT = 200             ## 가져올 캔들 개수
 MULTIPLIER = 3          ## 거래량, 캔들크기가 평균 대비 몇 배 이상일 떄 OpenAI에 질의할 것인지?
@@ -83,7 +83,7 @@ is_timing = (time_diff_minutes >= 59) and \
     (current_candle_size_15m >= avg_candle_size_15m * MULTIPLIER) or \
     (current_rsi_15m <= 30 or current_rsi_15m >= 70))
 
-if(is_timing):
+if(True):
     response = openai.chat.completions.create(
         model=MODEL_NAME,  # 사용할 모델
         messages=[
