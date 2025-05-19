@@ -1,0 +1,24 @@
+name: db-crypto-labs
+services:
+  mariadb:
+    image: mariadb:11.4.5
+    container_name: mariadb
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: r00t  # 루트 비밀번호 설정
+      MARIADB_DATABASE: btc        # 생성할 데이터베이스 명
+      MARIADB_USER: user           # 생성할 사용자
+      MARIADB_PASSWORD: us2r       # 사용자의 비밀번호
+    ports:
+      - "3306:3306"                # 호스트3306:컨테이너3306
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - db_network
+
+volumes:
+  db_data:
+
+networks:
+  db_network:
+    driver: bridge
